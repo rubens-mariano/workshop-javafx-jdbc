@@ -10,6 +10,6 @@ module com.curso.workshopjavafxjdbc {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.curso.workshopjavafxjdbc to javafx.fxml;
-    exports com.curso.workshopjavafxjdbc;
+    opens com.curso.workshopjavafxjdbc.application to javafx.fxml;
+    exports com.curso.workshopjavafxjdbc.application;
 }
