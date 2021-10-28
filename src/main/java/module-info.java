@@ -12,4 +12,6 @@ module com.curso.workshopjavafxjdbc {
 
     opens com.curso.workshopjavafxjdbc.application to javafx.fxml;
     exports com.curso.workshopjavafxjdbc.application;
+    opens com.curso.workshopjavafxjdbc.controllers to javafx.fxml;
+    exports com.curso.workshopjavafxjdbc.controllers;
 }
