@@ -35,7 +35,7 @@ public class MainViewController implements Initializable {
     }
     @FXML
     public void onVBoxDepartmentAction() {
-        System.out.println("onVBoxDepartmentAction");
+        loadView("/com/curso/workshopjavafxjdbc/gui/DepartmentList.fxml");
     }
     @FXML
     public void onVBoxAboutAction() {
