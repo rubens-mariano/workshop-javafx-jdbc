@@ -1,6 +1,6 @@
 package com.curso.workshopjavafxjdbc.controllers;
 
-import com.curso.workshopjavafxjdbc.application.Program;
+import com.curso.workshopjavafxjdbc.application.Main;
 import com.curso.workshopjavafxjdbc.gui.utils.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +47,7 @@ public class MainViewController implements Initializable {
     private synchronized void loadView(String absoluteName) {
         try {
             StackPane newStackPane = new FXMLLoader(getClass().getResource(absoluteName)).load();
-            Scene mainScene = Program.getMainScene();
+            Scene mainScene = Main.getMainScene();
             BorderPane borderPane = (BorderPane) mainScene.getRoot();
             borderPane.setCenter(newStackPane);
         } catch (IOException e) {
