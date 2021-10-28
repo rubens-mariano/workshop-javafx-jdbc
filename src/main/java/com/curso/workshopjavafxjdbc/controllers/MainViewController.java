@@ -1,10 +1,12 @@
 package com.curso.workshopjavafxjdbc.controllers;
 
 import com.curso.workshopjavafxjdbc.application.Program;
+import com.curso.workshopjavafxjdbc.gui.utils.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -27,6 +29,18 @@ public class MainViewController implements Initializable {
     public void onButtonHelpAction() {
         loadView("/com/curso/workshopjavafxjdbc/gui/MenuHelp.fxml");
     }
+    @FXML
+    public void onVBoxSellerAction() {
+        System.out.println("onVBoxSellerAction");
+    }
+    @FXML
+    public void onVBoxDepartmentAction() {
+        System.out.println("onVBoxDepartmentAction");
+    }
+    @FXML
+    public void onVBoxAboutAction() {
+        loadView("/com/curso/workshopjavafxjdbc/gui/About.fxml");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,12 +48,12 @@ public class MainViewController implements Initializable {
 
     private synchronized void loadView(String absoluteName) {
         try {
-            GridPane newGridPane = new FXMLLoader(getClass().getResource(absoluteName)).load();
+            StackPane newStackPane = new FXMLLoader(getClass().getResource(absoluteName)).load();
             Scene mainScene = Program.getMainScene();
             BorderPane borderPane = (BorderPane) mainScene.getRoot();
-            borderPane.setCenter(newGridPane);
+            borderPane.setCenter(newStackPane);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 }
