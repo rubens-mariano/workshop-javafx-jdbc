@@ -2,6 +2,7 @@ package com.curso.workshopjavafxjdbc.controllers;
 
 import com.curso.workshopjavafxjdbc.application.Main;
 import com.curso.workshopjavafxjdbc.gui.utils.Alerts;
+import com.curso.workshopjavafxjdbc.model.services.DepartmentService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,7 +34,7 @@ public class MainViewController implements Initializable {
     }
     @FXML
     public void onVBoxDepartmentAction() {
-        loadView("/com/curso/workshopjavafxjdbc/gui/DepartmentList.fxml");
+        loadView2("/com/curso/workshopjavafxjdbc/gui/DepartmentList.fxml");
     }
     @FXML
     public void onVBoxAboutAction() {
@@ -50,6 +51,22 @@ public class MainViewController implements Initializable {
             Scene mainScene = Main.getMainScene();
             BorderPane borderPane = (BorderPane) mainScene.getRoot();
             borderPane.setCenter(newStackPane);
+        } catch (IOException e) {
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    private synchronized void loadView2(String absoluteName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            StackPane newStackPane = loader.load();
+            Scene mainScene = Main.getMainScene();
+            BorderPane borderPane = (BorderPane) mainScene.getRoot();
+            borderPane.setCenter(newStackPane);
+
+            DepartmentListController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+
         } catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }

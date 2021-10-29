@@ -1,0 +1,63 @@
+@startuml
+class com.curso.workshopjavafxjdbc.application.Main {
++ {static} Scene mainScene
++ {static} void main(String[])
++ void start(Stage)
++ {static} Scene getMainScene()
+}
+class com.curso.workshopjavafxjdbc.model.entities.Department {
+- {static} long serialVersionUID
+- Integer id
+- String name
++ <<Create>> Department()
++ <<Create>> Department(Integer,String)
++ Integer getId()
++ void setId(Integer)
++ String getName()
++ void setName(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+class com.curso.workshopjavafxjdbc.controllers.MainViewController {
+- ScrollPane scrollPane
++ void onButtonRegistrationAction()
++ void onButtonHelpAction()
++ void onVBoxSellerAction()
++ void onVBoxDepartmentAction()
++ void onVBoxAboutAction()
++ void initialize(URL,ResourceBundle)
+- void loadView(String)
+- void loadView2(String)
+}
+class com.curso.workshopjavafxjdbc.gui.utils.Alerts {
++ {static} void showAlert(String,String,String,Alert.AlertType)
+}
+class com.curso.workshopjavafxjdbc.gui.utils.Constraints {
++ {static} void setTextFieldInteger(TextField)
++ {static} void setTextFieldMaxLength(TextField,int)
++ {static} void setTextFieldDouble(TextField)
+}
+class com.curso.workshopjavafxjdbc.controllers.DepartmentListController {
+- DepartmentService departmentService
+- TableView<Department> tableViewDepartment
+- TableColumn<Department,Integer> tableColumnId
+- TableColumn<Department,String> tableColumnName
+- Button btnNew
+- ObservableList<Department> observableList
++ void onButtonBtnNewAction()
++ void setDepartmentService(DepartmentService)
++ void initialize(URL,ResourceBundle)
+- void initializeNodes()
++ void updateTableView()
+}
+class com.curso.workshopjavafxjdbc.model.services.DepartmentService {
++ List<Department> findAll()
+}
+
+
+javafx.application.Application <|-- com.curso.workshopjavafxjdbc.application.Main
+java.io.Serializable <|.. com.curso.workshopjavafxjdbc.model.entities.Department
+javafx.fxml.Initializable <|.. com.curso.workshopjavafxjdbc.controllers.MainViewController
+javafx.fxml.Initializable <|.. com.curso.workshopjavafxjdbc.controllers.DepartmentListController
+@enduml

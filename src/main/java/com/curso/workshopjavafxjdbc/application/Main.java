@@ -27,6 +27,8 @@ public class Main extends Application {
             primaryStage.setScene(mainScene);
             primaryStage.setTitle("Sample JavaFX application");
             primaryStage.show();
+            primaryStage.setMinWidth(1043);
+            primaryStage.setMinHeight(633);
         } catch (IOException e) {
             e.printStackTrace();
         }
