@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class MainViewController implements Initializable {
     @FXML
@@ -22,11 +23,11 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onButtonRegistrationAction() {
-        loadView("/com/curso/workshopjavafxjdbc/gui/MenuRegistration.fxml");
+        loadView("/com/curso/workshopjavafxjdbc/gui/MenuRegistration.fxml", x -> {});
     }
     @FXML
     public void onButtonHelpAction() {
-        loadView("/com/curso/workshopjavafxjdbc/gui/MenuHelp.fxml");
+        loadView("/com/curso/workshopjavafxjdbc/gui/MenuHelp.fxml", x -> {});
     }
     @FXML
     public void onVBoxSellerAction() {
@@ -34,28 +35,21 @@ public class MainViewController implements Initializable {
     }
     @FXML
     public void onVBoxDepartmentAction() {
-        loadView2("/com/curso/workshopjavafxjdbc/gui/DepartmentList.fxml");
+        loadView("/com/curso/workshopjavafxjdbc/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        });
     }
     @FXML
     public void onVBoxAboutAction() {
-        loadView("/com/curso/workshopjavafxjdbc/gui/About.fxml");
+        loadView("/com/curso/workshopjavafxjdbc/gui/About.fxml", x -> {});
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    private synchronized void loadView(String absoluteName) {
-        try {
-            StackPane newStackPane = new FXMLLoader(getClass().getResource(absoluteName)).load();
-            Scene mainScene = Main.getMainScene();
-            BorderPane borderPane = (BorderPane) mainScene.getRoot();
-            borderPane.setCenter(newStackPane);
-        } catch (IOException e) {
-            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-    private synchronized void loadView2(String absoluteName) {
+    private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             StackPane newStackPane = loader.load();
@@ -63,10 +57,8 @@ public class MainViewController implements Initializable {
             BorderPane borderPane = (BorderPane) mainScene.getRoot();
             borderPane.setCenter(newStackPane);
 
-            DepartmentListController controller = loader.getController();
-            controller.setDepartmentService(new DepartmentService());
-            controller.updateTableView();
-
+            T controller = loader.getController();
+            initializingAction.accept(controller);
         } catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
