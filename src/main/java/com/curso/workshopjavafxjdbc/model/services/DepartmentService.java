@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentService {
-    private DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+    private final DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 
     public List<Department> findAll() {
         return departmentDao.findAll();
