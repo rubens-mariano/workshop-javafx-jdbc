@@ -2,9 +2,9 @@ package com.curso.workshopjavafxjdbc.model.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Department implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -38,14 +38,14 @@ public class Department implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Department)) return false;
-        Department that = (Department) o;
-        return Objects.equals(getId(), that.getId());
+        if (!(o instanceof Department that)) return false;
+
+        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return getId() != null ? getId().hashCode() : 0;
     }
 
     @Override
