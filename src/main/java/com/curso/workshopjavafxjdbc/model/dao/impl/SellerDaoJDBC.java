@@ -1,7 +1,7 @@
 package com.curso.workshopjavafxjdbc.model.dao.impl;
 
-import com.curso.demodaojdbc.db.DB;
-import com.curso.demodaojdbc.db.DbException;
+import com.curso.workshopjavafxjdbc.db.DB;
+import com.curso.workshopjavafxjdbc.db.DbException;
 import com.curso.workshopjavafxjdbc.model.dao.SellerDao;
 import com.curso.workshopjavafxjdbc.model.entities.Department;
 import com.curso.workshopjavafxjdbc.model.entities.Seller;

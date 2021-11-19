@@ -1,8 +1,12 @@
 package com.curso.workshopjavafxjdbc.controllers;
 
+import com.curso.workshopjavafxjdbc.db.DbException;
 import com.curso.workshopjavafxjdbc.gui.utils.Alerts;
 import com.curso.workshopjavafxjdbc.gui.utils.Constraints;
+import com.curso.workshopjavafxjdbc.gui.utils.Utils;
 import com.curso.workshopjavafxjdbc.model.entities.Department;
+import com.curso.workshopjavafxjdbc.model.services.DepartmentService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
     private Department entity;
+
+    private DepartmentService departmentService;
 
     @FXML
     private TextField txtId;
@@ -35,14 +41,37 @@ public class DepartmentFormController implements Initializable {
         this.entity = entity;
     }
 
-    @FXML
-    public void onBtnSaveAction() {
-        Alerts.showAlert("Menssage", "Menssage to Button Action", "onBtnSaveAction Clicked", Alert.AlertType.INFORMATION);
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @FXML
-    public void onBtnCancelAction() {
-        Alerts.showAlert("Menssage", "Menssage to Button Action", "onBtnCancelAction Clicked", Alert.AlertType.INFORMATION);
+    public void onBtnSaveAction(ActionEvent event) {
+        if (entity == null) {
+            throw new IllegalStateException("Entity was null");
+        }
+        if (departmentService == null) {
+            throw new IllegalStateException("DepartmentService was null");
+        }
+        try {
+            entity = getFormData();
+            departmentService.saveOrUpdate(entity);
+            Utils.currentStage(event).close();
+        } catch (DbException e) {
+            Alerts.showAlert("Error saving Department", null, e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private Department getFormData() {
+        Department department = new Department();
+        department.setId(Utils.tryParseToInt(txtId.getText()));
+        department.setName(txtName.getText());
+        return department;
+    }
+
+    @FXML
+    public void onBtnCancelAction(ActionEvent event) {
+        Utils.currentStage(event).close();
     }
 
     @Override

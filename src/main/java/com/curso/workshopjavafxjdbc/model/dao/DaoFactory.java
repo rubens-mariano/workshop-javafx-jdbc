@@ -1,6 +1,6 @@
 package com.curso.workshopjavafxjdbc.model.dao;
 
-import com.curso.demodaojdbc.db.DB;
+import com.curso.workshopjavafxjdbc.db.DB;
 import com.curso.workshopjavafxjdbc.model.dao.impl.DepartmentDaoJDBC;
 import com.curso.workshopjavafxjdbc.model.dao.impl.SellerDaoJDBC;
 

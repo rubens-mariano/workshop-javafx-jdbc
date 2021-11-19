@@ -1,4 +1,4 @@
-package com.curso.demodaojdbc.db;
+package com.curso.workshopjavafxjdbc.db;
 
 import java.io.Serial;
 
